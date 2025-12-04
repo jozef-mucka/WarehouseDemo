@@ -8,6 +8,12 @@ public class ProductModel {
 	float price = 0;
 	int quantity = 0;
 
+	@Override
+	public String toString() {
+		return "ProductModel [id=" + id + ", productNumber=" + productNumber + ", productName=" + productName
+				+ ", price=" + price + ", quantity=" + quantity + "]";
+	}
+
 	public ProductModel() {
 		super();
 	}

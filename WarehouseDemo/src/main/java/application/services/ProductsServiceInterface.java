@@ -13,5 +13,5 @@ public interface ProductsServiceInterface<T> {
 
 	public boolean deleteProduct(long id);
 
-	public T updateProducts(long id, T updatedProduct);
+	public T updateProduct(long id, T updatedProduct);
 }
