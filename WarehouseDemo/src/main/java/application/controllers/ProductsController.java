@@ -86,11 +86,16 @@ public class ProductsController {
 	}
 
 	private String buildProductsPage(Model model, String title, List<ProductModel> products) {
-		title = title == null ? "List of products" : title;
+		title = title == null ? "Products" : title;
 		products = products == null ? productsService.getProducts() : products;
 		model.addAttribute("title", title);
 		model.addAttribute("searchModel", new SearchModel());
 		model.addAttribute("products", products);
 		return "products";
+	}
+
+	@GetMapping("/spa")
+	public String showSPA(Model model) {
+		return "SPA/productsSPA";
 	}
 }
