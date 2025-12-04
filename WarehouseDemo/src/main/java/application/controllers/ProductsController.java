@@ -56,7 +56,7 @@ public class ProductsController {
 
 	@PostMapping("/addNew")
 	public String addNew(ProductModel newProduct, Model model) {
-		// newProduct.setId(null);
+		newProduct.setId(null);
 		productsService.addProduct(newProduct);
 		return buildProductsPage(model);
 	}
