@@ -3,7 +3,7 @@ package application.data;
 import java.util.List;
 
 public interface ProductsDataAccessInterface<T> {
-	public T GetById(long id);
+	public T getById(long id);
 
 	public List<T> getProducts();
 

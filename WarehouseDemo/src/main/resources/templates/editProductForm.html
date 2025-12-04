@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorate="layouts/commonLayout" xmlns:th="http://thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="container mt-3 mb-3">
+			<div class=" row mb-3">
+				<div class="col text-center">
+					<h2 class="text-secondary" th:text="${title}"></h2>
+				</div>
+			</div>
+			<form th:action="@{/products/doUpdate}" action="#" method="post" th:object="${product}">
+				<input name="id" type="hidden" th:value="${product.id}">
+				<div class="mb-3">
+					<label for="productNumberInput" class="form-label">Product Number</label>
+					<input th:field="*{productNumber}" type="text" class="form-control" id="productNumberInput">
+				</div>
+				<div class="mb-3">
+					<label for="productNameInput" class="form-label">Product Name</label>
+					<input th:field="*{productName}" type="text" class="form-control" id="productNameInput">
+				</div>
+				<div class="mb-3">
+					<label for="productPriceInput" class="form-label">Product Price</label>
+					<input th:field="*{price}" type="text" class="form-control" id="productPriceInput">
+				</div>
+				<div class="mb-3">
+					<label for="productQuantityInput" class="form-label">Product Quantity</label>
+					<input th:field="*{quantity}" type="text" class="form-control" id="productQuantityInput">
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

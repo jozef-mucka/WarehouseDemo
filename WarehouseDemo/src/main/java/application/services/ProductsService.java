@@ -21,32 +21,27 @@ public class ProductsService implements ProductsServiceInterface<ProductModel> {
 
 	@Override
 	public ProductModel GetById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return productsDAO.getById(id);
 	}
 
 	@Override
 	public List<ProductModel> searchProducts(String searchTerm) {
-		// TODO Auto-generated method stub
-		return null;
+		return productsDAO.searchProducts(searchTerm);
 	}
 
 	@Override
 	public long addProduct(ProductModel newProduct) {
-		// TODO Auto-generated method stub
-		return 0;
+		return productsDAO.addProduct(newProduct);
 	}
 
 	@Override
 	public boolean deleteProduct(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		return productsDAO.deleteProduct(id);
 	}
 
 	@Override
-	public ProductModel updateProducts(long id, ProductModel updatedProduct) {
-		// TODO Auto-generated method stub
-		return null;
+	public ProductModel updateProduct(long id, ProductModel updatedProduct) {
+		return productsDAO.updateProduct(id, updatedProduct);
 	}
 
 }

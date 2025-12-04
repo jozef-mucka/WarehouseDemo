@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="/layouts/commonLayout">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/commonLayout}">
 
 <head>
 	<title>Products</title>
@@ -7,10 +7,30 @@
 
 <body>
 	<div layout:fragment="content">
-		<div class="container mt-5">
-			<div class=" row mb-3">
-				<div class="col text-center">
-					<h2 class="text-secondary" th:text="${title}"></h2>
+		<div class="container mt-3">
+			<div class="card border-0 mb-3">
+				<div class="card-body">
+					<div class=" row mb-3">
+						<div class="col text-center">
+							<h2 class="text-secondary" th:text="${title}"></h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-auto ml-3 mr-3">
+							<a href="/products/newProductForm" class="btn btn-primary">Add a product</a>
+						</div>
+						<div class="col-auto d-flex align-items-center">
+							<span class="text-muted">or</span>
+						</div>
+						<div class="col ms-auto">
+							<form th:action="@{/products/search}" action="#" method="post" th:object="${searchModel}"
+								class="d-flex align-items-center">
+								<button type="submit" class="btn btn-primary mr-3">Search</button>
+								<input th:field="*{searchTerm}" type="text" class="form-control" id="searchInput"
+									placeholder="Type a word or phrase to search for...">
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="card shadow-sm">
@@ -24,6 +44,7 @@
 									<th>Name</th>
 									<th>Price</th>
 									<th>Qty</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -33,6 +54,19 @@
 									<td th:text="${product.productName}"></td>
 									<td th:text="${product.price}"></td>
 									<td th:text="${product.quantity}"></td>
+									<td>
+										<form action="#" th:action="@{/products/editForm/{id}(id=${product.id})}"
+											method="post" class="d-inline">
+											<button class="btn btn-primary" type="submit"
+												name="deleteItem">Edit</button>
+										</form>
+										<form action="#" th:action="@{/products/delete/{id}(id=${product.id})}"
+											method="post" class="d-inline">
+											<input type="hidden" name="_method" value="delete">
+											<button class="btn btn-danger" type="submit"
+												name="deleteItem">Delete</button>
+										</form>
+									</td>
 								</tr>
 							</tbody>
 						</table>
