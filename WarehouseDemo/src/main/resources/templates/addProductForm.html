@@ -9,9 +9,9 @@
 <body>
 	<div layout:fragment="content">
 		<div class="container mt-3 mb-3">
-			<div th:replace="~{fragments/productFormHeader :: productFormHeader(${title}))"></div>
+			<div th:replace="~{fragments/productFormHeader :: productFormHeader(${title})}"></div>
 			<form th:action="@{/products/addNew}" th:object="${product}" method="post">
-			    <div th:replace="~{fragments/productFormFields :: formFields)"></div>
+			    <div th:replace="~{fragments/productFormFields :: formFields}"></div>
 			</form>
 		</div>
 	</div>

@@ -17,15 +17,15 @@
 					</div>
 					<div class="row">
 						<div class="col-auto ml-3 mr-3">
-							<a href="/products/newProductForm" class="btn btn-primary">Add a product</a>
+							<a href="/products/newProductForm" class="btn btn-primary" th:text="#{btn.addProduct}"></a>
 						</div>
 						<div class="col-auto d-flex align-items-center">
-							<span class="text-muted">or</span>
+							<span class="text-muted" th:text="#{or}"></span>
 						</div>
 						<div class="col ms-auto">
 							<form th:action="@{/products/search}" action="#" method="post" th:object="${searchModel}"
 								class="d-flex align-items-center">
-								<button type="submit" class="btn btn-primary mr-3">Search</button>
+								<button type="submit" class="btn btn-primary mr-3" th:text="#{btn.search}"></button>
 								<input th:field="*{searchTerm}" type="text" class="form-control" id="searchInput"
 									placeholder="Type a word or phrase to search for...">
 							</form>
@@ -39,11 +39,11 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>Product Number</th>
-									<th>Name</th>
-									<th>Price</th>
-									<th>Qty</th>
+									<th th:text="#{table.id}"></th>
+									<th th:text="#{table.productNumber}"></th>
+									<th th:text="#{table.name}"></th>
+									<th th:text="#{table.price}"></th>
+									<th th:text="#{table.quantity}"></th>
 									<th></th>
 								</tr>
 							</thead>
@@ -58,13 +58,13 @@
 										<form action="#" th:action="@{/products/editForm/{id}(id=${product.id})}"
 											method="post" class="d-inline">
 											<button class="btn btn-primary" type="submit"
-												name="deleteItem">Edit</button>
+												name="deleteItem" th:text="#{btn.edit}"></button>
 										</form>
 										<form action="#" th:action="@{/products/delete/{id}(id=${product.id})}"
 											method="post" class="d-inline">
 											<input type="hidden" name="_method" value="delete">
 											<button class="btn btn-danger" type="submit"
-												name="deleteItem">Delete</button>
+												name="deleteItem" th:text="#{btn.delete}"></button>
 										</form>
 									</td>
 								</tr>
