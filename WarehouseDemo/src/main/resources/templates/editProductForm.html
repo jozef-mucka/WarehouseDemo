@@ -3,16 +3,16 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title th:text="${title}"></title>
 </head>
 
 <body>
 	<div layout:fragment="content">
 		<div class="container mt-3 mb-3">
-			<div th:replace="~{fragments/productFormHeader :: productFormHeader(${title}))"></div>
+			<div th:replace="~{fragments/productFormHeader :: productFormHeader(${title})}"></div>
 			<form th:action="@{/products/doUpdate}" action="#" method="post" th:object="${product}">
 				<input name="id" type="hidden" th:value="${product.id}">
-				<div th:replace="~{fragments/productFormFields :: formFields)"></div>
+				<div th:replace="~{fragments/productFormFields :: formFields}"></div>
 			</form>
 		</div>
 	</div>
