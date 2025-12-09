@@ -1,11 +1,24 @@
 package application.models;
 
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PositiveOrZero;
+
+@Valid
 public class ProductModel {
 
 	Long id = 0L;
-	String productNumber = "";
+	@Pattern(regexp = "^p-.*$", message = "{product.productNumber.startsWith}")
+	String productNumber = "p-";
+	@NotBlank
 	String productName = "";
+	@NotNull
+	@PositiveOrZero
 	float price = 0;
+	@NotNull
+	@PositiveOrZero
 	int quantity = 0;
 
 	@Override
