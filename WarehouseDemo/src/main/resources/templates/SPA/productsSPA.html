@@ -1,78 +1,84 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
-	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<title th:text="#{headerTitle}"></title>
 </head>
 
 <body>
+	<!-- Header -->
 	<div class="container-fluid bg-primary text-white py-5 shadow-sm">
 		<div class="row">
 			<div class="col-md-12 text-center">
-				<h1 class="display-4 fw-bold mb-2">Warehouse demo</h1>
-				<p class="lead mb-0">Manage your inventory effortlessly</p>
+				<h1 class="display-4 fw-bold mb-2" th:text="#{headerTitle}"></h1>
+				<p class="lead mb-0" th:text="#{headerSubtitle}"></p>
 			</div>
 		</div>
 	</div>
+
 	<div class="container" id="main-body">
 		<div class="container mt-3">
 			<div class="card border-0 mb-3">
 				<div class="card-body">
-					<div class=" row mb-3">
+					<div class="row mb-3">
 						<div class="col text-center">
-							<h2 class="text-secondary">Products</h2>
+							<h2 class="text-secondary" th:text="#{products}"></h2>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-auto align-items-center ml-3 mr-3">
-							<button class="add-button btn btn-primary" id="add-button">Add a product</button>
+							<button class="add-button btn btn-primary" id="add-button"
+								th:text="#{btn.addProduct}"></button>
 						</div>
 						<div class="col-auto d-flex align-items-center">
-							<span class="text-muted">or</span>
+							<span class="text-muted" th:text="#{or}"></span>
 						</div>
 						<div class="col ms-auto">
 							<div class="d-flex align-items-center">
-								<button class="btn btn-primary mr-3" id="search-button">Search</button>
-								<input type="text" class="form-control" id="searchTerm" name="searchTerm" value=""
-									placeholder="Type a word or phrase to search for...">
+								<button class="btn btn-primary mr-3" id="search-button"
+									th:text="#{btn.search}"></button>
+								<input type="text" class="form-control" id="searchTerm" name="searchTerm">
+								<!--<input type="text" class="form-control" id="searchTerm" name="searchTerm"
+									th:placeholder="#{input.searchPlaceholder}"> placeholder doesnt want to work with txt property...-->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 			<div id="entry-form" class="container">
-				<h2 id="form-title">Edit item</h2>
+				<h2 id="form-title" th:text="#{editProduct}"></h2>
+
 				<div class="mb-3">
-					<label for="productid" class="form-label">ID</label>
+					<label for="productid" class="form-label" th:text="#{id}"></label>
 					<input type="text" class="form-control" id="productid" readonly>
 				</div>
 				<div class="mb-3">
-					<label for="productnumber" class="form-label">Product Number</label>
+					<label for="productnumber" class="form-label" th:text="#{productNumber}"></label>
 					<input type="text" class="form-control" id="productnumber">
 				</div>
 				<div class="mb-3">
-					<label for="productname" class="form-label">Product Name</label>
+					<label for="productname" class="form-label" th:text="#{productName}"></label>
 					<input type="text" class="form-control" id="productname">
 				</div>
 				<div class="mb-3">
-					<label for="productprice" class="form-label">Price</label>
+					<label for="productprice" class="form-label" th:text="#{price}"></label>
 					<input type="text" class="form-control" id="productprice">
 				</div>
 				<div class="mb-3">
-					<label for="productquantity" class="form-label">Quantity</label>
+					<label for="productquantity" class="form-label" th:text="#{quantity}"></label>
 					<input type="text" class="form-control" id="productquantity">
 				</div>
-				<button id="form-add" type="button" class="btn btn-primary">Submit new</button>
-				<button id="form-ok" type="button" class="btn btn-primary">Submit edits</button>
-				<button id="form-close" type="button" class="btn btn-primary">Cancel edits</button>
+				<button id="form-add" type="button" class="btn btn-primary" th:text="#{btn.submit}"></button>
+				<button id="form-ok" type="button" class="btn btn-primary" th:text="#{btn.submitEdits}"></button>
+				<button id="form-close" type="button" class="btn btn-primary" th:text="#{btn.cancel}"></button>
 			</div>
-			<div id="results-box">
-			</div>
+			<div id="results-box"></div>
 		</div>
 	</div>
+	<script th:src="@{/js/site.js}"></script>
 </body>
-<script th:src="@{/js/site.js}"></script>
 
 </html>

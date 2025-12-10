@@ -1,6 +1,11 @@
 $(document).ready(function() {
 	console.log("ready");
 
+	let messages = {};
+	$.getJSON("/messages", function(data) {
+		messages = data;
+	});
+
 	$("#entry-form").hide(0);
 
 	$("#search-button").click(function() {
@@ -16,11 +21,11 @@ $(document).ready(function() {
 				for (var x = 0; x < result.length; x++) {
 					var product = result[x];
 					outputHTML += "<div class='single-product mt-3'><ul>";
-					outputHTML += "<li>Id: " + product.id + "</li>";
-					outputHTML += "<li>Product Number: " + product.productNumber + "</li>";
-					outputHTML += "<li>Product Name: " + product.productName + "</li>";
-					outputHTML += "<li>Price: " + product.price + "</li>";
-					outputHTML += "<li>Quantity: " + product.quantity + "</li>";
+					outputHTML += "<li>" + messages["id"] + ": " + product.id + "</li>";
+					outputHTML += "<li>" + messages["productNumber"] + ": " + product.productNumber + "</li>";
+					outputHTML += "<li>" + messages["productName"] + ": " + product.productName + "</li>";
+					outputHTML += "<li>" + messages["price"] + ": " + product.price + "</li>";
+					outputHTML += "<li>" + messages["quantity"] + ": " + product.quantity + "</li>"; ``
 					outputHTML += "</ul>";
 					outputHTML += "<button class = 'edit-button btn btn-secondary mr-1' value = '" + product.id + "'>Edit</button>";
 					outputHTML += "<button class = 'delete-button btn btn-secondary' value = '" + product.id + "'>Delete</button>";
@@ -36,8 +41,8 @@ $(document).ready(function() {
 		$("#entry-form").show(500);
 		$("#form-ok").hide();
 		$("#form-add").show();
-		$("#form-title").text('Add product');
-		$("#form-close").text('Cancel');
+		$("#form-title").text(messages["addProduct"]);
+		$("#form-close").text(messages["btn.cancel"]);
 		$("#productid").val('');
 		$("#productnumber").val('p-');
 		$("#productname").val('');
@@ -90,8 +95,8 @@ $(document).ready(function() {
 				$("#entry-form").show(500);
 				$("#form-add").hide();
 				$("#form-ok").show();
-				$("#form-title").text('Edit product');
-				$("#form-close").text('Cancel edits');
+				$("#form-title").text(messages["editProduct"]);
+				$("#form-close").text(messages["btn.cancel"]);
 			}
 		})
 	});
