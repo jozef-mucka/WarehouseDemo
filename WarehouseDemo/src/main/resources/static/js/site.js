@@ -43,38 +43,21 @@ $(document).ready(function() {
 		$("#form-add").show();
 		$("#form-title").text(messages["addProduct"]);
 		$("#form-close").text(messages["btn.cancel"]);
-		$("#productid").val('');
-		$("#productnumber").val('p-');
-		$("#productname").val('');
-		$("#productprice").val('');
-		$("#productquantity").val('');
+		$("#id").val('');
+		$("#productNumber").val('p-');
+		$("#productName").val('');
+		$("#price").val('');
+		$("#quantity").val('');
 	});
 
 	$("#form-add").click(function() {
 		var obj = new Object();
-		obj.productNumber = $("#productnumber").val();
-		obj.productName = $("#productname").val();
-		obj.price = $("#productprice").val();
-		obj.quantity = $("#productquantity").val();
+		obj.productNumber = $("#productNumber").val();
+		obj.productName = $("#productName").val();
+		obj.price = $("#price").val();
+		obj.quantity = $("#quantity").val();
 
-		var jsonString = JSON.stringify(obj);
-		//console.log('json for update', jsonString);
-
-		$.ajax({
-			url: "http://localhost:8080/api/v1/products/",
-			type: 'POST',
-			contentType: 'application/json',
-			data: jsonString,
-			dataType: 'json',
-			success: function(data) {
-				console.log('update response', data);
-			},
-			error: function(e) {
-				console.log(e);
-			}
-		});
-		$("#entry-form").hide(500);
-		$("#results-box").html("");
+		ajaxSubmitProduct("http://localhost:8080/api/v1/products/", "POST", obj);
 	});
 
 	$(document).on("click", ".edit-button", function() {
@@ -86,11 +69,11 @@ $(document).ready(function() {
 			type: 'GET',
 			success: function(result) {
 				//console.log(result);
-				$("#productid").val(result.id);
-				$("#productnumber").val(result.productNumber);
-				$("#productname").val(result.productName);
-				$("#productprice").val(result.price);
-				$("#productquantity").val(result.quantity);
+				$("#id").val(result.id);
+				$("#productNumber").val(result.productNumber);
+				$("#productName").val(result.productName);
+				$("#price").val(result.price);
+				$("#quantity").val(result.quantity);
 
 				$("#entry-form").show(500);
 				$("#form-add").hide();
@@ -103,34 +86,19 @@ $(document).ready(function() {
 
 	$("#form-ok").click(function() {
 		var obj = new Object();
-		obj.id = $("#productid").val();
-		obj.productNumber = $("#productnumber").val();
-		obj.productName = $("#productname").val();
-		obj.price = $("#productprice").val();
-		obj.quantity = $("#productquantity").val();
+		obj.id = $("#id").val();
+		obj.productNumber = $("#productNumber").val();
+		obj.productName = $("#productName").val();
+		obj.price = $("#price").val();
+		obj.quantity = $("#quantity").val();
 
-		var jsonString = JSON.stringify(obj);
-		//console.log('json for update', jsonString);
-
-		$.ajax({
-			url: "http://localhost:8080/api/v1/products/" + obj.id,
-			type: 'PUT',
-			contentType: 'application/json',
-			data: jsonString,
-			dataType: 'json',
-			success: function(data) {
-				console.log('update response', data);
-			},
-			error: function(e) {
-				console.log(e);
-			}
-		});
-		$("#entry-form").hide(500);
-		$("#results-box").html("");
+		ajaxSubmitProduct("http://localhost:8080/api/v1/products/" + product.id, "PUT", product);
 	});
 
 	$("#form-close").click(function() {
 		$("#entry-form").hide(500);
+		$(".is-invalid").removeClass("is-invalid");
+		$(".invalid-feedback").text("");
 		//$("#results-box").html("");
 	});
 
@@ -150,4 +118,46 @@ $(document).ready(function() {
 		});
 		$("#results-box").html("");
 	});
+
+	function ajaxSubmitProduct(url, type, dataObj) {
+		$.ajax({
+			url: url,
+			type: type,
+			contentType: 'application/json',
+			data: JSON.stringify(dataObj),
+			dataType: 'json',
+			success: function(data) {
+				console.log('response', data);
+				$("#entry-form").hide(500);
+				$("#results-box").html("");
+			},
+			error: function(e) {
+				$(".is-invalid").removeClass("is-invalid");
+				$(".invalid-feedback").text("");
+				console.log(e);
+				let response = e.responseJSON;
+				if (!response && e.responseText) {
+					try {
+						response = JSON.parse(e.responseText);
+					} catch (err) { }
+				}
+
+				if (e.status === 400) {
+					if (response && response.errors) {
+						for (const field in response.errors) {
+							$("#error-" + field).text(response.errors[field]);
+							$("#" + field).addClass("is-invalid");
+						}
+					} else if (response && response.message) {
+						alert(messages["err.unhandledValidation"] + ": " + response.message);
+					}
+					else {
+						alert(messages["err.unknownValidation"] + ", " + messages["err.checkConsole"]);
+					}
+				} else {
+					alert(messages["err.unexpected"] + ", " + messages["err.checkConsole"]);
+				}
+			}
+		});
+	}
 });
