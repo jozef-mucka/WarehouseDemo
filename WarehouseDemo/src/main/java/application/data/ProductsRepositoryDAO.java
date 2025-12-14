@@ -28,6 +28,9 @@ public class ProductsRepositoryDAO implements ProductsDataAccessInterface<Produc
 	@Override
 	public ProductModel getById(long id) {
 		ProductEntity entity = prouctsRepository.findById(id).orElse(null);
+		if (entity == null) {
+			return null;
+		}
 		ProductModel prouctModel = modelMapper.map(entity, ProductModel.class);
 		return prouctModel;
 	}
@@ -65,7 +68,7 @@ public class ProductsRepositoryDAO implements ProductsDataAccessInterface<Produc
 	}
 
 	@Override
-	public ProductModel updateProduct(long id, ProductModel updateProduct) {
+	public ProductModel updateProduct(ProductModel updateProduct) {
 		ProductEntity entity = prouctsRepository.save(modelMapper.map(updateProduct, ProductEntity.class));
 		return modelMapper.map(entity, ProductModel.class);
 	}

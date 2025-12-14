@@ -13,5 +13,5 @@ public interface ProductsDataAccessInterface<T> {
 
 	public boolean deleteProduct(long id);
 
-	public T updateProduct(long id, T updateProduct);
+	public T updateProduct(T updateProduct);
 }

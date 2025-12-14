@@ -78,7 +78,8 @@ public class ProductsFakeDAO implements ProductsDataAccessInterface<ProductModel
 	}
 
 	@Override
-	public ProductModel updateProduct(long id, ProductModel updateProduct) {
+	public ProductModel updateProduct(ProductModel updateProduct) {
+		Long id = updateProduct.getId();
 		for (int i = 0;i<products.size();i++) {
 			if(products.get(i).getId()==id) {
 				products.set(i, updateProduct);
