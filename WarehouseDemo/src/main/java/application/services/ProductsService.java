@@ -20,7 +20,7 @@ public class ProductsService implements ProductsServiceInterface<ProductModel> {
 	}
 
 	@Override
-	public ProductModel GetById(long id) {
+	public ProductModel getById(long id) {
 		return productsDAO.getById(id);
 	}
 

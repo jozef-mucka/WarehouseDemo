@@ -82,7 +82,7 @@ public class ProductsController {
 	@PostMapping("/editForm/{id}")
 	public String displayEditForm(@PathVariable(name = "id") Long id, Model model, Locale locale) {
 		model.addAttribute("title", messageSource.getMessage("addProduct", null, locale));
-		ProductModel productModel2 = productsService.GetById(id);
+		ProductModel productModel2 = productsService.getById(id);
 		model.addAttribute("product", productModel2);
 		return "editProductForm";
 	}
