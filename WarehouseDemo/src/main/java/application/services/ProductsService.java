@@ -40,10 +40,10 @@ public class ProductsService implements ProductsServiceInterface<ProductModel> {
 	}
 
 	@Override
-	public ProductModel updateProduct(long id, ProductModel updatedProduct) {
+	public ProductModel updateProduct(long id, ProductModel updatedProduct) throws RuntimeException {
 		ProductModel existing = productsDAO.getById(id);
 		if(existing == null) {
-			new Exception("Product with id " + id + " not found");
+			throw new RuntimeException("Product with id " + id + " not found");
 		}
         existing.setProductNumber(updatedProduct.getProductNumber());
         existing.setProductName(updatedProduct.getProductName());
