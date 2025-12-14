@@ -41,7 +41,15 @@ public class ProductsService implements ProductsServiceInterface<ProductModel> {
 
 	@Override
 	public ProductModel updateProduct(long id, ProductModel updatedProduct) {
-		return productsDAO.updateProduct(id, updatedProduct);
+		ProductModel existing = productsDAO.getById(id);
+		if(existing == null) {
+			new Exception("Product with id " + id + " not found");
+		}
+        existing.setProductNumber(updatedProduct.getProductNumber());
+        existing.setProductName(updatedProduct.getProductName());
+        existing.setPrice(updatedProduct.getPrice());
+        existing.setQuantity(updatedProduct.getQuantity());
+		return productsDAO.updateProduct(existing);
 	}
 
 }
