@@ -30,7 +30,7 @@ public class ProductsRestController {
 	}
 
 	@GetMapping("/")
-	public List<ProductModel> showAllProducts(Model model) {
+	public List<ProductModel> showAllProducts() {
 		List<ProductModel> products = productsService.getProducts();
 		return products;
 	}
@@ -51,7 +51,7 @@ public class ProductsRestController {
 	
 	@GetMapping("/{id}")
 	public ProductModel getById(@PathVariable(name="id") Long id) {
-		return productsService.GetById(id);
+		return productsService.getById(id);
 	}
 	
 	@PostMapping("/")

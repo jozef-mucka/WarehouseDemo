@@ -1,18 +1,17 @@
 package application.services;
 
-import static org.assertj.core.api.Assertions.assertThatNoException;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import static org.mockito.Mockito.any;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import application.data.ProductsDataAccessInterface;
@@ -30,10 +29,10 @@ public class ProductsServiceTest {
 	@Test
 	public void getById() {
 		ProductModel mockProduct = new ProductModel(null, "p-011", "Box", 10.0f, 3);
-		when(productsDAO.getById(Mockito.any(Long.class))).thenReturn(mockProduct);
+		when(productsDAO.getById(any(Long.class))).thenReturn(mockProduct);
 		
-		ProductModel newProduct = productsService.GetById(1L);
-		Assertions.assertThat(newProduct).isNotNull();
+		ProductModel newProduct = productsService.getById(1L);
+		assertThat(newProduct).isNotNull();
 	}
 	
 	@Test
@@ -42,35 +41,35 @@ public class ProductsServiceTest {
 		when(productsDAO.getProducts()).thenReturn(mockProducts);
 		
 		List<ProductModel> products = productsService.getProducts();
-		Assertions.assertThat(products).isNotNull();
+		assertThat(products).isNotNull();
 	}
 	
 	@Test
 	public void searchProducts() {
 		List<ProductModel> mockProducts = new ArrayList<>();
-		when(productsDAO.searchProducts(Mockito.any(String.class))).thenReturn(mockProducts);
+		when(productsDAO.searchProducts(any(String.class))).thenReturn(mockProducts);
 		
 		List<ProductModel> products = productsService.searchProducts("text");
-		Assertions.assertThat(products).isNotNull();
+		assertThat(products).isNotNull();
 	}
 	
 	@Test
 	public void addProduct() {
 		Long mockId = 1L;
-		when(productsDAO.addProduct(Mockito.any(ProductModel.class))).thenReturn(mockId);
+		when(productsDAO.addProduct(any(ProductModel.class))).thenReturn(mockId);
 		ProductModel newProduct = new ProductModel(null, "p-011", "Box", 10.0f, 3);
 		
 		Long newId = productsService.addProduct(newProduct);
-		Assertions.assertThat(newId).isNotNull();
+		assertThat(newId).isNotNull();
 	}
 	
 	@Test
 	public void deleteProduct() {
 		Boolean mockDeleted = true;
-		when(productsDAO.deleteProduct(Mockito.any(Long.class))).thenReturn(mockDeleted);
+		when(productsDAO.deleteProduct(any(Long.class))).thenReturn(mockDeleted);
 		
 		Boolean deleted = productsService.deleteProduct(1L);
-		Assertions.assertThat(deleted).isNotNull();
+		assertThat(deleted).isNotNull();
 	}
 
 	@Test
@@ -80,12 +79,12 @@ public class ProductsServiceTest {
 		Long missingID = -1L;
 		
 		ProductModel toUpdateProduct = new ProductModel(null, "p-011", "Box", 10.0f, 3);
-		when(productsDAO.updateProduct(Mockito.any(ProductModel.class))).thenReturn(mockProduct);
+		when(productsDAO.updateProduct(any(ProductModel.class))).thenReturn(mockProduct);
 		when(productsDAO.getById(existingID)).thenReturn(mockProduct);
 		when(productsDAO.getById(missingID)).thenReturn(null);
 		
 		ProductModel updatedProduct = productsService.updateProduct(existingID, toUpdateProduct);
-		Assertions.assertThat(updatedProduct).isNotNull();
+		assertThat(updatedProduct).isNotNull();
 		
 		assertThatThrownBy(() ->
 	        productsService.updateProduct(missingID, toUpdateProduct)

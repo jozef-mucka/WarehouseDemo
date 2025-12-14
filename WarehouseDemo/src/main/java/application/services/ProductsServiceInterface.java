@@ -3,7 +3,7 @@ package application.services;
 import java.util.List;
 
 public interface ProductsServiceInterface<T> {
-	public T GetById(long id);
+	public T getById(long id);
 
 	public List<T> getProducts();
 
